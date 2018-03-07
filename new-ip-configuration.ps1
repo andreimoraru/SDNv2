@@ -1,4 +1,4 @@
-$uri = "https://twaqidcdtsdnnc.dttcsms.local"
+$uri = "REST endpoint here"
 $macAddress= "001dd8b721bd"
 $vmNetworkName = "Front End-d14906d1344546ec8679c0f179fe54bb"
 $ipResourceName = "additionalIp00"
