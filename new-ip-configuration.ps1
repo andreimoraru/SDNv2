@@ -2,6 +2,7 @@ $uri = "REST endpoint here"
 $macAddress= "001dd8b721bd"
 $vmNetworkName = "Front End-d14906d1344546ec8679c0f179fe54bb"
 $ipResourceName = "additionalIp00"
+$ipAddress = "192.168.3.14"
 
 $macAddress = $macAddress.ToUpper()
 
@@ -17,7 +18,7 @@ $virtualSubnetObjectRef = Get-NetworkControllerVirtualSubnet -ConnectionUri $uri
 
 $ipProperties = New-Object Microsoft.Windows.NetworkController.NetworkInterfaceIpConfigurationProperties
 
-$ipProperties.PrivateIPAddress = "192.168.3.14"
+$ipProperties.PrivateIPAddress = $ipAddress
 $ipProperties.PrivateIPAllocationMethod = "Static"
 $ipProperties.Subnet = $virtualSubnetObjectRef
 
