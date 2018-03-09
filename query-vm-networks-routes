@@ -1,0 +1,16 @@
+$uri = "REST endpoint"
+
+### Change value of $vmNetworkName variable to the name
+$vmNetworkName = "VMnetwork01"
+
+$vmNetworkObjectRef = Get-NetworkControllerVirtualNetwork -ConnectionUri $uri | Where-Object {$_.ResourceMetadata.ResourceName -eq $vmNetworkName}
+
+
+foreach ($subnet in $vmNetworkObjectRef.Properties.Subnets) {   
+    $routeTableName = ($subnet.Properties.RouteTable.ResourceRef -split ("/"))[2]
+    $routeTableObjectRef = Get-NetworkControllerRouteTable -ConnectionUri $uri -ResourceId $routeTableName
+
+    Write-Host "`n`n$vmNetworkName VM network has following routes in the route table:"
+
+    $routeTableObjectRef.Properties.Routes.Properties
+}
