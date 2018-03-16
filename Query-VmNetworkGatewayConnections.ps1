@@ -15,7 +15,7 @@ function Import-ModuleIfNotAlreadyImported {
     $isImported = Get-Module | Where-Object {$_.Name -eq $Name}
     
     if (!$isImported) {
-        Import-Module virtualmachinemanager
+        Import-Module $Name
         }
     } 
 
@@ -36,13 +36,14 @@ function Query-VmNetworkGatewayConnections {
 
 }
 
-# change variable value to the name of VM network
+# change $vmNetworkName value to the name of VM network;
 $vmNetworkName = "<VM network name here>"
 #
 #
-# change variable value to type of connection(s) that you want to query
+# change $connectionType value to type of connection that you want to query;
 # valid values are: IKEv2, L2TP, PPTP, GRE, L3, IPSec
 #
 $connectionType = "<VM network gateway connection type>"
+##
 
 Query-VmNetworkGatewayConnections -VmNetworkName $VmNetworkName -ConnectionType $connectionType
