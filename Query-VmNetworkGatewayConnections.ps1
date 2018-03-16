@@ -1,4 +1,4 @@
-﻿###
+###
 ##
 # Script to query SCVMM about details of all L3 Forwarding connections for a specific VM network
 ##
@@ -26,7 +26,7 @@ function Query-VmNetworkGatewayConnections {
         )
     $Name = "virtualmachinemanager"
 
-    Import-ModuleIfNotAlreadyImported -Name $moduleName
+    Import-ModuleIfNotAlreadyImported -Name $Name
 
     $vmNetwork = Get-SCVMNetwork -Name $vmNetworkName
 
