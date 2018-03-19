@@ -66,11 +66,11 @@ $moduleName = "virtualmachinemanager"
 #
 #
 # VM network name
-$VmNetworkName = "Tenant-A-VM-Network"
+$VmNetworkName = "<VM network name here>"
 #
 #
 # VPN connection name
-$VPNConnectionName = "L3F-Tenant-A"
+$VPNConnectionName = "<VPN connection name>"
 #
 #
 # Connection protocol
@@ -79,7 +79,8 @@ $protocol = "L3"
 #
 # Network routes
 $routingSubnets = @(
-    "172.16.0.0/29"
+    "192.168.10.0/29",
+    "192.168.20.0/29"
     )
 #
 #
