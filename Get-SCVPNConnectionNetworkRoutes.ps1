@@ -1,8 +1,3 @@
-$VmNetworkName = "Tenant-A-VM-Network"
-$VPNConnectionName = "L3F-Tenant-A"
-$protocol = "L3"
-$moduleName = "virtualmachinemanager"
-
 
 function Import-ModuleIfNotAlreadyImported {
     param ([String]$Name)
@@ -25,11 +20,11 @@ function Get-SCVPNConnectionNetworkRoutes {
         Write-Warning "`n`n`n$Protocol variable not defined, using L3 as default value..." 
     }
 
-    $VmNetworkObjectRef = Get-SCVMNetwork -Name $VmNetworkName
+    $VmNetworkObjectRef = Get-SCVMNetwork -Name $VMnetworkName
 
     $vmNetworkGatewayObjectRef = Get-SCVMNetworkGateway -VMNetwork $VmNetworkObjectRef
 
-    $vpnConnection = Get-SCVPNConnection -Name $VPNConnectionName -VMNetworkGateway $vmNetworkGatewayObjectRef | Where-Object {$_.Protocol -eq $protocol}
+    $vpnConnection = Get-SCVPNConnection -Name $VPNConnectionName -VMNetworkGateway $vmNetworkGatewayObjectRef | Where-Object {$_.Protocol -eq $Protocol}
 
     if ($vpnConnection.count -gt 1) {
         throw "More than 1 connection with $VPNConnectionName name ..."
@@ -37,6 +32,24 @@ function Get-SCVPNConnectionNetworkRoutes {
         Get-SCNetworkRoute -VPNConnection $vpnConnection
     }
 }
+
+##
+# module name
+$moduleName = "virtualmachinemanager"
+#
+#
+# VM network name
+$VmNetworkName = "<VM network name here>"
+#
+#
+# VPN connection name
+$VPNConnectionName = "<VPN connection name>"
+#
+#
+# Connection protocol
+$protocol = "L3"
+#
+##
 
 Import-ModuleIfNotAlreadyImported -Name $moduleName
 
