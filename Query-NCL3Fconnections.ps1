@@ -1,4 +1,4 @@
-$uri = "https://twaqidcdtsdnnc.dttcsms.local"
+$uri = "REST endpoint"
 $moduleName = "networkcontroller"
 $connectionType = "L3"
 
