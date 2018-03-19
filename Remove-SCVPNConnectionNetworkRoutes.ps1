@@ -46,7 +46,7 @@ function Remove-SCVPNConnectionNetworkRoutes {
                           Write-Host "`nNetwork route was removed...`n`n"
                      }
                 } else {
-                    Write-Host "No network route was found..."
+                    Write-Host "`n`nNo network route was found..."
                 }
             }
 
