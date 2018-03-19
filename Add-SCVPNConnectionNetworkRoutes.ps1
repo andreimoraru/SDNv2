@@ -18,7 +18,7 @@ function Add-SCVPNConnectionNetworkRoutes {
     param(
     [String]$VMnetworkName,
     [String]$VPNConnectionName,
-    [String]$RoutingSubnets,
+    [String[]]$RoutingSubnets,
     [String]$Protocol="L3"
     )
 
