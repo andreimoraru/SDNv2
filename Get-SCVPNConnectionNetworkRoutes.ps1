@@ -1,8 +1,4 @@
 $VmNetworkName = "Tenant-A-VM-Network"
-$NextHopVmNetworkName = "L3F-LNet-Tenant-A-Transit"
-$LocalIPAddresses = @("172.17.224.2/29")
-$PeerIPAddresses = @("172.17.224.3")
-$RoutingSubnets = @("192.168.0.0/29")
 $VPNConnectionName = "L3F-Tenant-A"
 $protocol = "L3"
 $moduleName = "virtualmachinemanager"
