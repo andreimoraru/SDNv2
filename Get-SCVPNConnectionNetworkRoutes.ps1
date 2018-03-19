@@ -21,6 +21,10 @@ function Get-SCVPNConnectionNetworkRoutes {
     [String]$Protocol="L3"
     )
 
+    if (!$PSCmdlet.$Protocol) {
+        Write-Warning "`n`n`n$Protocol variable not defined, using L3 as default value..." 
+    }
+
     $VmNetworkObjectRef = Get-SCVMNetwork -Name $VmNetworkName
 
     $vmNetworkGatewayObjectRef = Get-SCVMNetworkGateway -VMNetwork $VmNetworkObjectRef
