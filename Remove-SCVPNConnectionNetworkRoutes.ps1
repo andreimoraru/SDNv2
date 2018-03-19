@@ -1,0 +1,88 @@
+##
+# remove network route(s) in network routes list from VM network gateway of VM network
+#
+#
+##
+
+function Import-ModuleIfNotAlreadyImported {
+    param ([String]$Name)
+
+    $isImported = Get-Module | Where-Object {$_.Name -eq $Name}
+    
+    if (!$isImported) {
+        Import-Module $Name
+        }
+    } 
+
+function Remove-SCVPNConnectionNetworkRoutes {
+    param(
+    [String]$VMnetworkName,
+    [String]$VPNConnectionName,
+    [String[]]$RoutingSubnets,
+    [String]$Protocol="L3"
+    )
+
+    $VmNetworkObjectRef = Get-SCVMNetwork -Name $VmNetworkName
+
+    $vmNetworkGatewayObjectRef = Get-SCVMNetworkGateway -VMNetwork $VmNetworkObjectRef
+
+    $vpnConnection = Get-SCVPNConnection -Name $VPNConnectionName -VMNetworkGateway $vmNetworkGatewayObjectRef | Where-Object {$_.Protocol -eq $Protocol}
+
+    # Remove network routes from VM network gateway...
+    try 
+    {
+        foreach($route in $RoutingSubnets)
+            {   
+                
+                $networkRouteObjectRef = Get-SCNetworkRoute -VPNConnection $vpnConnection | Where-Object {$_.IPSubnet -eq $route}
+                if ($networkRouteObjectRef) {
+                     Write-Host "`nRemoving network route $route from the routing table...`n`n"
+                     $routeRemoveResult = Remove-SCNetworkRoute -NetworkRoute $networkRouteObjectRef
+                     if ($routeRemoveResult) {
+                          Write-Host "`nNetwork route was removed...`n`n"
+                     }
+                } else {
+                    Write-Host "No network route was found..."
+                }
+            }
+
+    }
+
+    catch
+    {
+        $PSItem.Exception.InnerExceptionMessage
+    }
+
+        Write-Host "`n`n`nFollowing network routes exists for $VPNConnectionName $Protocol connection of $VMnetworkName VM network..."
+        Get-SCNetworkRoute -VPNConnection $vpnConnection
+}
+
+
+##
+# module name
+$moduleName = "virtualmachinemanager"
+#
+#
+# VM network name
+$VmNetworkName = "Tenant-A-VM-Network"
+#
+#
+# VPN connection name
+$VPNConnectionName = "L3F-Tenant-A"
+#
+#
+# Connection protocol
+$protocol = "L3"
+#
+#
+# Network routes
+$routingSubnets = @(
+    "192.168.30.0/29"
+    )
+#
+#
+##
+
+Import-ModuleIfNotAlreadyImported -Name $moduleName
+
+Remove-SCVPNConnectionNetworkRoutes -VMnetworkName $VmNetworkName -VPNConnectionName $VPNConnectionName -RoutingSubnets $routingSubnets
