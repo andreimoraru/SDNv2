@@ -17,7 +17,7 @@ function Import-ModuleIfNotAlreadyImported {
     if (!$isImported) {
         Import-Module $Name
         }
-    } 
+    }
 
 
 function Remove-VmNetworkGatewayConnection {
@@ -44,6 +44,12 @@ function Remove-VmNetworkGatewayConnection {
 
 }
 
+# module name
+#
+#
+$moduleName = "virtualmachinemanager"
+#
+#
 # change $vmNetworkName value to the name of VM network;
 $vmNetworkName = "Tenant-A-VM-Network"
 #
@@ -56,11 +62,9 @@ $connectionType = "L3"
 #
 #
 ## name of the connection
-$VPNConnectionName = "L3F-Tenant-A1"
+$VPNConnectionName = "L3F-Tenant-A"
 ##
 #
 #
-
-Query-VmNetworkGatewayConnections -VmNetworkName $VmNetworkName -ConnectionType $connectionType
 
 Remove-VmNetworkGatewayConnection -VmNetworkName $vmNetworkName -connectionType $connectionType -VPNconnectionName $VPNConnectionName
