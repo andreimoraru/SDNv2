@@ -21,11 +21,11 @@ function Remove-SCVPNConnectionNetworkRoutes {
     [String[]]$RoutingSubnets,
     [String]$Protocol="L3"
     )
-
+    
     if (!$PSCmdlet.$Protocol) {
         Write-Warning "`n`n`n$Protocol variable not defined, using L3 as default value..." 
     }
-    
+
     $VmNetworkObjectRef = Get-SCVMNetwork -Name $VmNetworkName
 
     $vmNetworkGatewayObjectRef = Get-SCVMNetworkGateway -VMNetwork $VmNetworkObjectRef
@@ -68,11 +68,11 @@ $moduleName = "virtualmachinemanager"
 #
 #
 # VM network name
-$VmNetworkName = "Tenant-A-VM-Network"
+$VmNetworkName = "<VM network name here>"
 #
 #
 # VPN connection name
-$VPNConnectionName = "L3F-Tenant-A"
+$VPNConnectionName = "<VPN connection name>"
 #
 #
 # Connection protocol
@@ -81,8 +81,10 @@ $protocol = "L3"
 #
 # Network routes
 $routingSubnets = @(
-    "192.168.30.0/29"
+    "192.168.10.0/29",
+    "192.168.20.0/29"
     )
+#
 #
 #
 ##
