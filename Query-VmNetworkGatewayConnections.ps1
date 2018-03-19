@@ -26,8 +26,6 @@ function Query-VmNetworkGatewayConnections {
         )
     $Name = "virtualmachinemanager"
 
-    Import-ModuleIfNotAlreadyImported -Name $Name
-
     $vmNetwork = Get-SCVMNetwork -Name $vmNetworkName
 
     $vmNetworkGateway = Get-SCVMNetworkGateway -VMNetwork $vmNetwork
@@ -45,5 +43,5 @@ $vmNetworkName = "<VM network name here>"
 #
 $connectionType = "<VM network gateway connection type>"
 ##
-
+Import-ModuleIfNotAlreadyImported -Name $Name
 Query-VmNetworkGatewayConnections -VmNetworkName $VmNetworkName -ConnectionType $connectionType
