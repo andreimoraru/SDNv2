@@ -24,7 +24,9 @@ function Query-VmNetworkGatewayConnections {
         [String]$VmNetworkName,
         [String]$connectionType="L3"
         )
-    $Name = "virtualmachinemanager"
+    if (!$PSCmdlet.$Protocol) {
+        Write-Warning "`n`n`n$Protocol variable not defined, using L3 as default value..." 
+    }
 
     $vmNetwork = Get-SCVMNetwork -Name $vmNetworkName
 
@@ -33,6 +35,11 @@ function Query-VmNetworkGatewayConnections {
     Get-SCVPNConnection -VMNetworkGateway $VmNetworkGateway | Where-Object {$_.Protocol -eq $connectionType}
 
 }
+
+##
+# module name
+#
+$moduleName = "virtualmachinemanager"
 
 # change $vmNetworkName value to the name of VM network;
 $vmNetworkName = "<VM network name here>"
@@ -43,5 +50,5 @@ $vmNetworkName = "<VM network name here>"
 #
 $connectionType = "<VM network gateway connection type>"
 ##
-Import-ModuleIfNotAlreadyImported -Name $Name
-Query-VmNetworkGatewayConnections -VmNetworkName $VmNetworkName -ConnectionType $connectionType
+Import-ModuleIfNotAlreadyImported -Name $moduleName
+Query-VmNetworkGatewayConnections -VmNetworkName $vmNetworkName -ConnectionType $connectionType
